@@ -20,3 +20,15 @@
 .App-link {
   color: #09d3ac;
 }
+
+/* address styling */
+.address {
+  display: flex;
+  margin: 0px;
+  padding: 10px 10px;
+  border: 1px solid white;
+
+  background-color: rgb(51, 51, 51);
+  color: white;
+  font-size: 20;
+}

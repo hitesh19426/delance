@@ -2,8 +2,8 @@ import React, { Component } from "react";
 import DalanceContract from "./contracts/Delance.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
-import HomePage from "./Home";
-import "./Home.js";
+import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
+import {Navigation, Footer, Home, Requests, Details} from "./components";
 
 class App extends Component {
   state = { storageValue: 0, web3: null, accounts: null, contract: null };
@@ -37,38 +37,28 @@ class App extends Component {
     }
   };
 
-  // runExample = async () => {
-    // const { accounts, contract } = this.state;
-
-    // Stores a given value, 5 by default.
-    // await contract.methods.set(5).send({ from: accounts[0] });
-
-    // Get the value from the contract to prove it worked.
-    // const response = await contract.methods.get().call();
-
-    // Update state with the result.
-    // this.setState({ storageValue: response });
-  // };
-
   render() {
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
     return (
       <div className="App">
-        {/* <h1>Good to Go!</h1> */}
-        {/* <p>Your Truffle Box is installed and ready.</p> */}
-        {/* <h2>Smart Contract Example</h2> */}
-        {/* <p>
-          If your contracts compiled and migrated successfully, below will show
-          a stored value of 5 (by default).
-        </p> */}
-        {/* <p>
-          Try changing the value stored on <strong>line 42</strong> of App.js.
-        </p> */}
-        {/* <div>The stored value is: {this.state.storageValue}</div> */}
+        <Router >
+          <Navigation />
+          
+          <div className="address">
+            Current Address: {this.state.web3.currentProvider.selectedAddress}
+          </div>
 
-        <div> <HomePage web3={this.state.web3} contract={this.state.contract} /> </div>
+          <Switch>
+            <Route exact path="/" exact component={() => <Home contract={this.state.contract} web3={this.state.web3}/>} />
+            <Route exact path="/requests" exact component={() => <Requests contract={this.state.contract} web3={this.state.web3} />} />
+            <Route exact path="/details" exact component={() => <Details contract={this.state.contract} web3={this.state.web3} />} />
+          </Switch>
+
+          {/* <Footer /> */}
+
+        </Router>
       </div>
     );
   }
