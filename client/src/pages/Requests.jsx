@@ -8,6 +8,8 @@ class Requests extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // TODO: change handleTitleChange to arrow function to remove unnecessary function
+
     // FIXME: error on submitting form
     async handleSubmit(event) {
         event.preventDefault();
