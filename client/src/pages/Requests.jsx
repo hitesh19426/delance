@@ -4,41 +4,32 @@ import "./styles/home.css";
 class Requests extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            web3: this.props.web3,
-            contract: this.props.contract,
-            title: "",
-            amount: "",
-        };
-
+        this.state = { title: "", amount: ""};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    // FIXME: error on submitting form
     async handleSubmit(event) {
         event.preventDefault();
 
+        const current_address = await this.props.web3.currentProvider.selectedAddress;
+        console.log(current_address);
+
         console.log(this.state.title);
         console.log(this.state.amount);
-
-        const current_address = await this.state.web3.currentProvider.selectedAddress;
-        console.log(current_address);
-        console.log(this.state.contract);
-
         const title = this.state.title;
         const amount = parseInt(this.state.amount);
-        // const freelancer = await this.state.contract.methods.freelancer().call();
-        // console.log( typeof freelancer );
-        // const currentAddress = await this.state.web3.currentProvider.selectedAddress;
-
+        
         console.log('calling create request function');
-
         try {
-            await this.state.contract.methods.createRequest(title, amount).send({from: current_address});
+            await this.props.contract.methods.createRequest(title, amount).send({from: current_address});
+            console.log('succesfully executed create request function');
+            alert('succesfully executed create request function');
         }
         catch(error){
             console.log(error);
+            alert('error occured. try again or check account or parameters');
         }
-        
     }
 
     render() {
@@ -57,8 +48,7 @@ class Requests extends React.Component {
                             name="title"
                             placeholder="enter job title"
                             value={this.state.title}
-                            onChange={(event) => this.setState({title: event.target.value})}
-                            
+                            onChange={(event) => this.setState({title: event.target.value})}  
                         />
                     </label>
                     
@@ -75,13 +65,8 @@ class Requests extends React.Component {
                     <input type="submit" value="Submit" />
 
                 </form>
-
             </div>
         );
-    }
-
-    async didComponentMount(){
-
     }
 };
 

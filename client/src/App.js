@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import DalanceContract from "./contracts/Delance.json";
+import DelanceContract from "./contracts/Delance.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route} from "react-router-dom";
-import {Navigation, Footer, Home, Requests, Details} from "./components";
+import {Navigation} from "./components";
+import {Home, Requests, Details} from "./pages";
 
 class App extends Component {
   state = { storageValue: 0, web3: null, accounts: null, contract: null };
@@ -18,9 +19,9 @@ class App extends Component {
 
       // Get the contract instance.
       const networkId = await web3.eth.net.getId();
-      const deployedNetwork = DalanceContract.networks[networkId];
+      const deployedNetwork = DelanceContract.networks[networkId];
       const instance = new web3.eth.Contract(
-        DalanceContract.abi,
+        DelanceContract.abi,
         deployedNetwork && deployedNetwork.address,
       );
 
@@ -51,9 +52,9 @@ class App extends Component {
           </div>
 
           <Switch>
-            <Route exact path="/" exact component={() => <Home contract={this.state.contract} web3={this.state.web3}/>} />
-            <Route exact path="/requests" exact component={() => <Requests contract={this.state.contract} web3={this.state.web3} />} />
-            <Route exact path="/details" exact component={() => <Details contract={this.state.contract} web3={this.state.web3} />} />
+            <Route exact path="/" component={() => <Home contract={this.state.contract} web3={this.state.web3}/>} />
+            <Route exact path="/requests" component={() => <Requests contract={this.state.contract} web3={this.state.web3} />} />
+            <Route exact path="/details" component={() => <Details contract={this.state.contract} web3={this.state.web3} />} />
           </Switch>
 
           {/* <Footer /> */}

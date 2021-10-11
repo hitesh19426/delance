@@ -1,4 +1,6 @@
+/* header gradient styling */
 .gradient1 {
+    min-height: 150px;
     width: 100%;
     background-color: #1fc8db;
     background-image: linear-gradient(140deg, #EADEDB 0%, #BC70A4 50%, #BFD641 75%);
@@ -9,28 +11,33 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
+}
+
+.gradient1 h1 {
     margin: 0px;
 }
 
-.gradient1 h1, h2, h3, h4, h5, h6 {
-    margin: 0px;
-    padding: 1px 10px;
+
+/* form styling */
+.form-inline {
+    display: block;
+    float: left;
+    margin: 50px;
 }
 
-.card-holder {
-    display: flex;
-}
-
-.card {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    max-width: 300px;
-    margin: auto;
+.form label, input {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px;
+    padding: 5px;
     text-align: center;
 }
 
+/* including padding in box for all elements */
 * {
     /* border: 1px solid black; */
     box-sizing: border-box;
 }
+
