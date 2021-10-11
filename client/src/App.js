@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, memo } from "react";
 import DelanceContract from "./contracts/Delance.json";
 import getWeb3 from "./getWeb3";
 import "./App.css";
@@ -58,11 +58,10 @@ class App extends Component {
           </Switch>
 
           {/* <Footer /> */}
-
         </Router>
       </div>
     );
   }
 }
 
-export default App;
+export default memo(App);

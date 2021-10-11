@@ -16,6 +16,15 @@ class Details extends Component {
         };
     }
 
+    handleUnlockRequest(index){
+        console.log('clicked unlock button', index);
+    }
+
+    handleWithdraw(index) {
+        console.log('clicked withdraw button', index);
+    }
+
+    // TODO: Map the request list to buttons
     printRequest(request, index){
         return (
             <tr key={index} className="table-row">
@@ -24,10 +33,13 @@ class Details extends Component {
                 <td> {request[1]} </td>
                 <td> {request[2] ? "true" : "false"} </td>
                 <td> {request[3] ? "true" : "false"} </td>
+                <td><button id={index} onClick={(id) => console.log(id)}>Unlock</button></td>
+                <td><button onClick={(key) => this.handleWithdraw(key)}>Withdraw</button></td>
             </tr>
         );
     }
 
+    // TODO: Add buttons to unlock and withdraw payment.
     printRequests(){
         return (
             <table className="center">
@@ -38,6 +50,8 @@ class Details extends Component {
                     <th>Amount</th>
                     <th>Unlocked</th>
                     <th>Paid</th>
+                    <th>Unlock</th>
+                    <th>Withdraw</th>
                 </tr></thead>
 
                 <tbody>
@@ -78,7 +92,6 @@ class Details extends Component {
                 <div>
                     {this.printRequests()}
                 </div>
-
             </div>
         );
     }
