@@ -7,9 +7,9 @@ contract Delance {
   // properties of freelancer-employee contract
   address payable public employer;
   address payable public freelancer;
-  uint public deadline; // deadline will start counting from time of uploading the block
+  uint256 public deadline; // deadline will start counting from time of uploading the block
 
-  constructor (address payable _address, uint _deadline) payable {
+  constructor (address payable _address, uint256 _deadline) payable {
     require(_address != msg.sender, 'employer cannot hire himself');
     employer = payable(msg.sender);
     freelancer = _address;
@@ -60,7 +60,7 @@ contract Delance {
   // a request is unlocked and update UI accordingly.
   event RequestUnlocked(bool locked);
 
-  function unlockRequest(uint _index) public onlyEmployer {
+  function unlockRequest(uint256 _index) public onlyEmployer {
     require(_index < requests.length && _index>=0, "Invalid index");
     
     // storage keyboard makes var "request" behaves as a pointer
@@ -74,7 +74,7 @@ contract Delance {
   // sending money to the freelancer for the request
   // who is paying here ?? employer, contract or price
   bool locked = false;
-  event RequestPaid(address payable freelancer, uint amount);
+  event RequestPaid(address payable freelancer, uint256 amount);
   
   function withdraw(uint _index) public onlyFreelancer {
     require(_index < requests.length && _index>=0, "Invalid index");
@@ -92,5 +92,11 @@ contract Delance {
     locked = false;
     emit RequestPaid(payable(msg.sender), request.amount);
   }
+
+  /* 
+    TODO: Add a function so employer can change deadline after time >= setdeadline
+    TODO: Add a function to allow employer to withdraw all the ether 
+        from the contract after deadline + buffer (say 2-3 days, less for testing).
+  */
 
 }

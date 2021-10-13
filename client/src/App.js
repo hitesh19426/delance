@@ -7,7 +7,7 @@ import {Navigation} from "./components";
 import {Home, Requests, Details} from "./pages";
 
 class App extends Component {
-  state = { storageValue: 0, web3: null, accounts: null, contract: null };
+  state = { web3: null, accounts: null, contract: null };
 
   componentDidMount = async () => {
     try {
@@ -29,11 +29,10 @@ class App extends Component {
       // example of interacting with the contract's methods.
       // this.setState({ web3, accounts, contract: instance }, this.runExample);
       this.setState({ web3, accounts, contract: instance });
-    } catch (error) {
+    }
+    catch (error) {
       // Catch any errors for any of the above operations.
-      alert(
-        `Failed to load web3, accounts, or contract. Check console for details.`,
-      );
+      alert(`Failed to load web3, accounts, or contract. Check console for details.`);
       console.error(error);
     }
   };

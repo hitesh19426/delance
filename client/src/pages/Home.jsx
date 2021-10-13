@@ -15,6 +15,7 @@ class Home extends React.Component {
         console.log('date input:', this.state.deadline);
 
         const balance = await this.props.web3.eth.getBalance(this.props.contract._address);
+        console.log(this.props.contract._address);
         console.log(balance);
         const ineth = await this.props.web3.utils.fromWei(balance, 'ether');
         console.log(ineth);

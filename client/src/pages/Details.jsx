@@ -1,7 +1,8 @@
-import React, { Component, memo } from "react";
+import React, { PureComponent, memo } from "react";
 import "./styles/details.css";
 
-class Details extends Component {
+// TODO: Fix price and its functionality + use
+class Details extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
@@ -16,25 +17,70 @@ class Details extends Component {
         };
     }
 
-    handleUnlockRequest(index){
-        console.log('clicked unlock button', index);
+    // TODO: Add functionality to handleWithdraw and handleUnlockRequest
+    // TODO: Add a function in smart contract to empty the requests array/reopen a request -- just for testing purposes.
+    async handleWithdraw(index) {
+        console.log('clicked withdraw button', index);
+        
+        const current_address = await this.props.web3.currentProvider.selectedAddress;
+        const index_local = parseInt(index);
+        console.log(current_address);
+
+        try {
+            console.log('calling withdraw function');
+            await this.props.contract.methods.withdraw(index_local).send({from: current_address});
+            alert('successfully withdraw payment for the request');
+
+            const updatedRequests = await this.props.contract.methods.getAllRequest().call();
+            console.log('successfully fetched updated requests');
+
+            const contract_address_local = this.props.contract._address;
+            const updatedBalance = await this.props.web3.eth.getBalance(contract_address_local);
+            const ineth = await this.props.web3.utils.fromWei(updatedBalance, 'ether');
+            this.setState({requests: updatedRequests, balance: updatedBalance, etherBalance: ineth});
+            console.log('successfully updated state');
+        }
+        catch(error){
+            alert('error occured. check log for more details.');
+            console.log(error);
+        }
     }
 
-    handleWithdraw(index) {
-        console.log('clicked withdraw button', index);
+    async handleUnlockRequest(index) {
+        console.log('clicked unlocked button', index);
+        console.log(this.props.contract);
+
+        const current_address = await this.props.web3.currentProvider.selectedAddress;
+        const index_local = parseInt(index);
+        console.log(current_address);
+
+        try {
+            console.log('calling unlock request function');
+            await this.props.contract.methods.unlockRequest(index_local).send({from: current_address});
+            alert('successfully unlocked request');
+            
+            const updatedRequests = await this.props.contract.methods.getAllRequest().call();
+            console.log('successfully fetched updated array');
+            this.setState({requests: updatedRequests});
+        }
+        catch(error){
+            alert('error occured while processing. check log for more details');
+            console.log(error);
+        }
     }
 
     // TODO: Map the request list to buttons
     printRequest(request, index){
+        // const buttonindex = index;
         return (
             <tr key={index} className="table-row">
                 <td> {index} </td>
                 <td> {request[0]} </td>
                 <td> {request[1]} </td>
-                <td> {request[2] ? "true" : "false"} </td>
-                <td> {request[3] ? "true" : "false"} </td>
-                <td><button id={index} onClick={(id) => console.log(id)}>Unlock</button></td>
-                <td><button onClick={(key) => this.handleWithdraw(key)}>Withdraw</button></td>
+                <td> {request[2] ? "True" : "False"} </td>
+                <td> {request[3] ? "True" : "False"} </td>
+                <td><button  onClick={ () => this.handleUnlockRequest(index) }> Unlock </button></td>
+                <td><button onClick={ () => this.handleWithdraw(index) }> Withdraw </button></td>
             </tr>
         );
     }
@@ -48,7 +94,7 @@ class Details extends Component {
                     <th> # </th>
                     <th>Title</th>
                     <th>Amount</th>
-                    <th>Unlocked</th>
+                    <th>Locked</th>
                     <th>Paid</th>
                     <th>Unlock</th>
                     <th>Withdraw</th>
@@ -87,6 +133,7 @@ class Details extends Component {
                     {this.printCard('Freelancer', this.state.freelancer)}
                     {this.printCard('Price', 10)}
                     {this.printCard('Deadline', this.state.deadline)}
+                    {/* TODO: Display deadline in proper format */}
                 </div>
 
                 <div>
