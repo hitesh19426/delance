@@ -7,8 +7,12 @@ import {Navigation} from "./components";
 import {Home, Requests, Details} from "./pages";
 
 class App extends Component {
+  /* initial state of the app, storing web3, accounts and contracts */
   state = { web3: null, accounts: null, contract: null };
 
+  /* componenetDidMount is a react function, it is called after render() and only once
+  when the object renders first time. We use this to update the value of state variables
+  from server (async) */
   componentDidMount = async () => {
     try {
       // Get network provider and web3 instance.
@@ -38,14 +42,18 @@ class App extends Component {
   };
 
   render() {
+    // If web3 is not loaded, show if, otherwise return part.
     if (!this.state.web3) {
       return <div>Loading Web3, accounts, and contract...</div>;
     }
+    {/* we are using router to build multi-route app like in flutter. <Navigation />
+      renders a navbar to the screen, then render address and after that switch to actually
+      allow switching between different routes. */}
     return (
       <div className="App">
         <Router >
           <Navigation />
-          
+
           <div className="address">
             Current Address: {this.state.web3.currentProvider.selectedAddress}
           </div>
@@ -63,4 +71,5 @@ class App extends Component {
   }
 }
 
+/* memo is used to improve rendering perfomance of the app. check w3schools */
 export default memo(App);

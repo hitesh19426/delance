@@ -2,12 +2,22 @@ import React, {memo} from "react";
 import "./styles/home.css";
 
 class Home extends React.Component {
+    /* we are receiving web3 and contract as props and storing 
+    address and deadline as local states. We are then binding handleSubmit to 
+    this to make the form controlled (not sure why this is necessary but you 
+    receive an error if you dont do this) */
     constructor(props) {
         super(props);
         this.state = {address: '', deadline: ''};
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    /* this function is used to manage home form. The form is controlled 
+    (react handle the input of the form fields at every instance).
+    
+    The function does not do anything of significane right now. It just logs 
+    some value to show it is working. */
+    // TODO: add functionality to actually deploy contract from this function.
     async handleSubmit(event){
         event.preventDefault();
 
@@ -28,9 +38,15 @@ class Home extends React.Component {
         }
     }
     
+    /* we are rendering the header and applying gradient to it. Then we render
+    a controlled form to allow user to deploy form from the UI itself. 
+    We are using arrow function with onChange to allow short code. 
+    We do not need to bind the function and "this" this way. 
+    */
     render() {
         return (
             <div >
+                {/* TODO: Change div to header to avoid confusion between gradient and header. */}
                 <div className="gradient1">
                     <h1> New Project </h1>
                     <h2> Create your new contract </h2>

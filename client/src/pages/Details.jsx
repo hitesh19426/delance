@@ -3,6 +3,8 @@ import "./styles/details.css";
 
 // TODO: Fix price and its functionality + use
 class Details extends PureComponent {
+    /* we are receiving web3 and contract as props and storing 
+    all data as local states for UI. */
     constructor(props) {
         super(props);
         this.state = {
