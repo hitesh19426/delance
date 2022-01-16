@@ -24,7 +24,10 @@ We have finalized the idea after submitting our first proposal now. We decided o
 
 ## Built With
 
-- React.js
+- React-JS
+- React Routes
+- React-Bootstrap
+- React-Hooks and functional components
 - Ganache
 - Truffle
 - Solidity
@@ -33,14 +36,27 @@ We have finalized the idea after submitting our first proposal now. We decided o
 ## Concepts
 
 - Solidity, Ganache, Truffle for writing and deploying smart contracts
-- Testing using Javascript promises using async/await
+- Testing using Javascript promises
 - Front end using React
 - Used react router, states, props, controlled forms, PureComponents for faster rendering.
 - Used DidComponentMount() to fetch data form blockchain and update variable states
-
 ---
 
-## Development Process:
+### Cloning project
+
+- Go to the your required directory and run `git clone <repo-link>`.
+- Change network/blockchain configuration in `truffle-config.js` file in project directory.
+- Change freelancer address and initial amount in `2_deploy_migrations.js` file in `/migrations` directory.
+- connect your metamask account in the browser.
+- go to `/client` directory and run `npm start` to start development server.
+---
+
+### TODO
+- Use react hooks and functional components instead class components.
+- Deploy the smart contract to a public testnet instead of local ganache.
+---
+
+## Development Process: (Skip this section)
 
 ### Back-end
 - Create a new project directory -- Delance
@@ -102,15 +118,3 @@ We have finalized the idea after submitting our first proposal now. We decided o
 *Cheers, you are now done with the frontend part also. Tweek as much as you like :)*
 
 ---
-
-### Cloning project
-
-- Go to the your required directory and run `git clone repo`.
-- Change network/blockchain configuration in `truffle-config.js` file in project directory.
-- Change freelancer address in `2_deploy_migrations.js` file in `/migrations` directory.
-- go to `/client` directory and run `npm start` to start development server.
-
----
-
-### TODO
-- Check project directories for some TODOs and FIXME. Use vscode todo tree directory for quickly doing this.
