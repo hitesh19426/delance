@@ -1,7 +1,6 @@
-#### Cheers, Finally completed README file for the repo :) ;) !!
+#### Cheers, Finally completed README file for the repo 😄 😀 😁
 
 ---
-
 ## About the Project
 
 ### Idea
